@@ -1,0 +1,48 @@
+# Dependencies
+node_modules
+/.pnp
+.pnp.js
+
+# Testing
+/coverage
+
+# Next.js
+/.next
+/out
+
+# Production
+/build
+
+# Environment
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.DS_Store
+
+# OS
+Thumbs.db
+
+# Prisma
+prisma/migrations/*
+!prisma/migrations/.gitkeep
+
+# PDF files (test/temporary)
+*.pdf
+
+# Cache
+.cache
