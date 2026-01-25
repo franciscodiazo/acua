@@ -1,12 +1,32 @@
-# Acueducto Rural — App Next.js 🚰
+# 💧 Acua - Sistema de Gestión de Acueducto Rural
 
-Aplicación mínima con Next.js + Prisma (SQLite) para gestionar suscriptores, lecturas, facturas y créditos.
+[![Next.js](https://img.shields.io/badge/Next.js-14.0-black?logo=next.js)](https://nextjs.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-18+-green?logo=node.js)](https://nodejs.org/)
+[![MySQL](https://img.shields.io/badge/MySQL-8.0-blue?logo=mysql)](https://www.mysql.com/)
+[![Prisma](https://img.shields.io/badge/Prisma-5.0-2D3748?logo=prisma)](https://www.prisma.io/)
+[![License](https://img.shields.io/badge/License-Privado-red)]()
 
-Rápido inicio:
-1. npm install
-2. npx prisma generate
-3. npx prisma migrate dev --name init
-4. npm run dev
+---
+
+## 📖 Descripción
+
+**Acua** es un sistema completo de gestión para acueductos rurales que permite administrar suscriptores, lecturas de consumo, facturación automática, pagos y generar reportes financieros detallados.
+
+## 🚀 Instalación Rápida
+
+### Opción A: Instalador Automático (Windows - Recomendado)
+```powershell
+.\install.ps1
+```
+
+### Opción B: Instalación Manual
+```bash
+npm install
+npx prisma generate
+npx prisma migrate deploy
+node scripts/seed.js
+npm run dev
+```
 
 Pruebas unitarias:
 - Ejecutar tests (Jest):
