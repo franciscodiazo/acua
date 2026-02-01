@@ -9,6 +9,9 @@ on:
 jobs:
   e2e:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        browser: [chromium, firefox, webkit]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -27,6 +30,6 @@ jobs:
       - name: Wait for server
         run: npx wait-on http://localhost:3000 --timeout 30000
       - name: Run Playwright tests
-        run: npx playwright test --reporter=list
+        run: npx playwright test --project=${{ matrix.browser }} --reporter=list
       - name: Stop server
         run: kill $(cat server.pid) || true

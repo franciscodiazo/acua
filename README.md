@@ -5,6 +5,7 @@
 [![MySQL](https://img.shields.io/badge/MySQL-8.0-blue?logo=mysql)](https://www.mysql.com/)
 [![Prisma](https://img.shields.io/badge/Prisma-5.0-2D3748?logo=prisma)](https://www.prisma.io/)
 [![License](https://img.shields.io/badge/License-Privado-red)]()
+[![E2E tests](https://github.com/franciscodiazo/acua/actions/workflows/e2e.yml/badge.svg)](https://github.com/franciscodiazo/acua/actions/workflows/e2e.yml)
 
 ---
 
