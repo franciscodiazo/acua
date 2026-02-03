@@ -13,33 +13,33 @@
         
         @page {
             size: letter;
-            margin: 0.5cm;
+            margin: 0.3cm;
         }
         
         body {
             font-family: Arial, sans-serif;
-            font-size: 11px;
-            line-height: 1.4;
+            font-size: 10px;
+            line-height: 1.3;
         }
         
         .page {
             width: 100%;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
+            height: 27.2cm; /* Altura de carta menos márgenes */
         }
         
         .receipt {
-            flex: 1;
-            padding: 15px;
+            height: 13.2cm; /* Mitad de la página */
+            padding: 10px;
             border: 1px dashed #ccc;
             position: relative;
+            overflow: hidden;
         }
         
         .receipt-divider {
             border-top: 2px dashed #999;
-            margin: 10px 0;
+            margin: 5px 0;
             position: relative;
+            height: 20px;
         }
         
         .receipt-divider::before {
@@ -50,15 +50,15 @@
             transform: translateX(-50%);
             background: white;
             padding: 0 10px;
-            font-size: 10px;
+            font-size: 9px;
             color: #666;
         }
         
         .copy-label {
             position: absolute;
-            top: 5px;
-            right: 10px;
-            font-size: 9px;
+            top: 3px;
+            right: 8px;
+            font-size: 8px;
             color: #666;
             font-style: italic;
         }
@@ -66,15 +66,15 @@
         .header {
             display: flex;
             align-items: flex-start;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             border-bottom: 2px solid #333;
-            padding-bottom: 10px;
+            padding-bottom: 8px;
         }
         
         .logo {
-            width: 80px;
-            height: 80px;
-            margin-right: 15px;
+            width: 60px;
+            height: 60px;
+            margin-right: 10px;
         }
         
         .logo img {
@@ -88,13 +88,13 @@
         }
         
         .company-name {
-            font-size: 16px;
+            font-size: 14px;
             font-weight: bold;
             color: #333;
         }
         
         .company-details {
-            font-size: 10px;
+            font-size: 9px;
             color: #666;
         }
         
@@ -103,25 +103,25 @@
         }
         
         .receipt-number .number {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bold;
             color: #d9534f;
         }
         
         .receipt-title {
             text-align: center;
-            font-size: 14px;
+            font-size: 12px;
             font-weight: bold;
             background: #f5f5f5;
-            padding: 5px;
-            margin: 10px 0;
+            padding: 4px;
+            margin: 6px 0;
             border: 1px solid #ddd;
         }
         
         .info-section {
             display: flex;
-            gap: 20px;
-            margin-bottom: 10px;
+            gap: 15px;
+            margin-bottom: 6px;
         }
         
         .info-block {
@@ -129,63 +129,64 @@
         }
         
         .info-block h4 {
-            font-size: 11px;
+            font-size: 10px;
             background: #333;
             color: white;
-            padding: 3px 8px;
-            margin-bottom: 5px;
+            padding: 2px 6px;
+            margin-bottom: 4px;
         }
         
         .info-row {
             display: flex;
-            padding: 2px 0;
+            padding: 1px 0;
             border-bottom: 1px dotted #ddd;
         }
         
         .info-label {
             width: 35%;
             color: #666;
-            font-size: 10px;
+            font-size: 9px;
         }
         
         .info-value {
             flex: 1;
             font-weight: 500;
+            font-size: 9px;
         }
         
         .amount-box {
             background: #f0f9f0;
             border: 2px solid #28a745;
-            padding: 10px;
+            padding: 6px;
             text-align: center;
-            margin: 10px 0;
+            margin: 6px 0;
         }
         
         .amount-label {
-            font-size: 10px;
+            font-size: 9px;
             color: #666;
         }
         
         .amount-value {
-            font-size: 22px;
+            font-size: 18px;
             font-weight: bold;
             color: #28a745;
         }
         
         .credit-summary {
             background: #f8f9fa;
-            padding: 8px;
-            margin: 10px 0;
+            padding: 5px;
+            margin: 6px 0;
             border: 1px solid #ddd;
         }
         
         .credit-summary table {
             width: 100%;
-            font-size: 10px;
+            font-size: 9px;
         }
         
         .credit-summary td {
-            padding: 2px 5px;
+            padding: 1px 4px;
         }
         
         .credit-summary .label {
@@ -198,38 +199,38 @@
         }
         
         .footer {
-            margin-top: auto;
-            padding-top: 10px;
+            margin-top: 5px;
+            padding-top: 5px;
             border-top: 1px solid #ddd;
         }
         
         .signatures {
             display: flex;
             justify-content: space-between;
-            margin-top: 30px;
+            margin-top: 15px;
         }
         
         .signature-line {
             width: 40%;
             border-top: 1px solid #333;
             text-align: center;
-            padding-top: 5px;
-            font-size: 10px;
+            padding-top: 3px;
+            font-size: 9px;
         }
         
         .bank-info {
-            font-size: 9px;
+            font-size: 8px;
             color: #666;
             text-align: center;
-            margin-top: 10px;
+            margin-top: 5px;
         }
         
         .custom-message {
-            font-size: 10px;
+            font-size: 8px;
             text-align: center;
             color: #666;
             font-style: italic;
-            margin-top: 5px;
+            margin-top: 3px;
         }
         
         .status-anulado {
@@ -237,7 +238,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%) rotate(-30deg);
-            font-size: 60px;
+            font-size: 50px;
             color: rgba(255, 0, 0, 0.2);
             font-weight: bold;
             pointer-events: none;

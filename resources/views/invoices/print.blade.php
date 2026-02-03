@@ -232,6 +232,89 @@
                 -webkit-print-color-adjust: exact;
             }
         }
+        
+        .chart-container {
+            background: #fff;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 10px;
+        }
+        .chart-bars {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            height: 100px;
+            padding: 10px 5px;
+            border-bottom: 2px solid #dee2e6;
+        }
+        .chart-bar {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            max-width: 40px;
+        }
+        .chart-bar-fill {
+            width: 25px;
+            background: linear-gradient(to top, #0d6efd, #6ea8fe);
+            border-radius: 3px 3px 0 0;
+            min-height: 5px;
+        }
+        .chart-bar-current {
+            background: linear-gradient(to top, #198754, #40c463);
+        }
+        .chart-bar-value {
+            font-size: 8px;
+            font-weight: bold;
+            margin-bottom: 3px;
+        }
+        .chart-labels {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px;
+        }
+        .chart-label {
+            flex: 1;
+            text-align: center;
+            font-size: 8px;
+            color: #666;
+            max-width: 40px;
+        }
+        
+        .credits-box {
+            background: #fff5f5;
+            border: 2px solid #dc3545;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+        .credits-box-title {
+            font-weight: bold;
+            color: #dc3545;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        .credits-table {
+            width: 100%;
+            font-size: 11px;
+        }
+        .credits-table th,
+        .credits-table td {
+            padding: 5px;
+            border-bottom: 1px solid #f5c6cb;
+        }
+        .credits-table th {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .credits-total {
+            font-size: 16px;
+            font-weight: bold;
+            color: #dc3545;
+            text-align: right;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -343,6 +426,73 @@
                     </tr>
                 </tbody>
             </table>
+            
+            <!-- Gráfico de Historial de Consumo -->
+            @if($historialConsumo->count() > 1)
+            <div class="chart-container">
+                <div style="font-weight: bold; margin-bottom: 10px; color: #0d6efd;">📈 Historial de Consumo (últimos {{ $historialConsumo->count() }} períodos)</div>
+                @php
+                    $maxConsumo = $historialConsumo->max('consumo') ?: 1;
+                @endphp
+                <div class="chart-bars">
+                    @foreach($historialConsumo as $index => $lectura)
+                    <div class="chart-bar">
+                        <span class="chart-bar-value">{{ $lectura->consumo }}</span>
+                        <div class="chart-bar-fill {{ $loop->last ? 'chart-bar-current' : '' }}" 
+                             style="height: {{ ($lectura->consumo / $maxConsumo) * 80 }}px;"></div>
+                    </div>
+                    @endforeach
+                </div>
+                <div class="chart-labels">
+                    @foreach($historialConsumo as $lectura)
+                    <div class="chart-label">{{ \Carbon\Carbon::parse($lectura->fecha_lectura)->format('M/y') }}</div>
+                    @endforeach
+                </div>
+                <div style="display: flex; justify-content: space-around; margin-top: 10px; font-size: 10px;">
+                    <div><strong>Promedio:</strong> {{ number_format($historialConsumo->avg('consumo'), 1) }} m³</div>
+                    <div><strong>Mínimo:</strong> {{ $historialConsumo->min('consumo') }} m³</div>
+                    <div><strong>Máximo:</strong> {{ $historialConsumo->max('consumo') }} m³</div>
+                </div>
+            </div>
+            @endif
+        </div>
+        @endif
+        
+        <!-- Créditos/Deudas Pendientes -->
+        @if($totalCreditosPendientes > 0)
+        <div class="credits-box">
+            <div class="credits-box-title">⚠️ CRÉDITOS/DEUDAS PENDIENTES</div>
+            <table class="credits-table">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Tipo</th>
+                        <th>Concepto</th>
+                        <th>Saldo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($creditosPendientes as $credito)
+                    <tr>
+                        <td>{{ $credito->numero }}</td>
+                        <td>
+                            @if($credito->tipo === 'credito')
+                                Crédito
+                            @elseif($credito->tipo === 'deuda')
+                                Deuda
+                            @else
+                                Cuota Pend.
+                            @endif
+                        </td>
+                        <td>{{ Str::limit($credito->concepto, 30) }}</td>
+                        <td style="text-align: right;">${{ number_format($credito->saldo, 0, ',', '.') }}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            <div class="credits-total">
+                Total Deuda Adicional: ${{ number_format($totalCreditosPendientes, 0, ',', '.') }}
+            </div>
         </div>
         @endif
         

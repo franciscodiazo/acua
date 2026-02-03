@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Invoice;
 use App\Models\Reading;
 use App\Models\Company;
+use App\Models\Credit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -106,7 +107,24 @@ class InvoiceController extends Controller
         $invoice->load('subscriber', 'reading', 'payments');
         $company = Company::first();
         
-        return view('invoices.print', compact('invoice', 'company'));
+        // Créditos/deudas pendientes del suscriptor
+        $creditosPendientes = Credit::where('subscriber_id', $invoice->subscriber_id)
+            ->where('estado', 'activo')
+            ->where('saldo', '>', 0)
+            ->get();
+        
+        $totalCreditosPendientes = $creditosPendientes->sum('saldo');
+        
+        // Historial de consumo de los últimos 12 meses
+        $historialConsumo = Reading::where('subscriber_id', $invoice->subscriber_id)
+            ->where('estado', 'facturado')
+            ->orderBy('fecha_lectura', 'desc')
+            ->take(12)
+            ->get()
+            ->reverse()
+            ->values();
+        
+        return view('invoices.print', compact('invoice', 'company', 'creditosPendientes', 'totalCreditosPendientes', 'historialConsumo'));
     }
 
     public function anular(Invoice $invoice)
