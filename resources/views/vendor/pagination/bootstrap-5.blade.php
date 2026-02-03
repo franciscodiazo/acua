@@ -161,7 +161,7 @@
                 <span class="input-group-text bg-light">
                     <i class="bi bi-list-ul"></i>
                 </span>
-                <select class="form-select form-select-sm" onchange="if(this.value) window.location.href=updateQueryString('per_page', this.value)">
+                <select class="form-select form-select-sm" id="perPageSelector">
                     @php
                         $currentPerPage = request()->get('per_page', 15);
                     @endphp
@@ -177,12 +177,17 @@
     </nav>
 
     <script>
-        function updateQueryString(key, value) {
-            const url = new URL(window.location);
-            url.searchParams.set(key, value);
-            url.searchParams.delete('page'); // Reset a página 1 al cambiar cantidad
-            return url.toString();
-        }
+        document.addEventListener('DOMContentLoaded', function() {
+            const perPageSelector = document.getElementById('perPageSelector');
+            if (perPageSelector) {
+                perPageSelector.addEventListener('change', function() {
+                    const url = new URL(window.location);
+                    url.searchParams.set('per_page', this.value);
+                    url.searchParams.delete('page'); // Reset a página 1
+                    window.location.href = url.toString();
+                });
+            }
+        });
     </script>
 
     {{-- Estilos personalizados --}}
@@ -207,12 +212,16 @@
             min-width: 40px;
             text-align: center;
             font-size: 0.875rem;
-            line-height: 1;
+            line-height: 1.2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .pagination-custom .page-link i {
-            font-size: 0.75rem;
-            vertical-align: middle;
+            font-size: 0.7rem;
+            line-height: 1;
+            display: inline-block;
         }
         
         .pagination-custom .page-link:hover {
