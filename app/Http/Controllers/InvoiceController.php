@@ -118,7 +118,7 @@ class InvoiceController extends Controller
         // Historial de consumo de los últimos 12 meses
         $historialConsumo = Reading::where('subscriber_id', $invoice->subscriber_id)
             ->where('estado', 'facturado')
-            ->orderBy('fecha_lectura', 'desc')
+            ->orderBy('fecha', 'desc')
             ->take(12)
             ->get()
             ->reverse()
