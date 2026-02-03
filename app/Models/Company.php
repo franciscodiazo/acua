@@ -18,6 +18,17 @@ class Company extends Model
         'municipio',
         'departamento',
         'representante_legal',
-        'logo'
+        'logo',
+        'cuenta_bancaria',
+        'banco',
+        'mensaje_factura'
     ];
+
+    public function getLogoUrlAttribute()
+    {
+        if ($this->logo) {
+            return asset('storage/' . $this->logo);
+        }
+        return null;
+    }
 }

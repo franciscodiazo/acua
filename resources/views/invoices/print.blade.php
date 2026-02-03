@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Factura {{ $invoice->numero }}</title>
+    <title>Cuota Familiar {{ $invoice->numero }}</title>
     <style>
         @page {
             size: letter;
@@ -236,7 +236,7 @@
 </head>
 <body>
     <button class="print-btn" onclick="window.print()">
-        🖨️ Imprimir Factura
+        🖨️ Imprimir Cuota Familiar
     </button>
     
     @if($invoice->estado === 'anulada')
@@ -249,8 +249,12 @@
         <!-- Encabezado -->
         <div class="header">
             <div class="header-left">
+                @if($company?->logo)
+                    <img src="{{ $company->logo_url }}" alt="Logo" style="max-height: 60px; margin-bottom: 10px;">
+                @else
+                    <span style="color: #0d6efd; font-size: 40px;">💧</span>
+                @endif
                 <div class="company-name">
-                    <span style="color: #0d6efd;">💧</span> 
                     {{ $company->nombre ?? 'ACUEDUCTO RURAL' }}
                 </div>
                 <div class="company-info">
@@ -265,7 +269,7 @@
                 </div>
             </div>
             <div class="header-right">
-                <div class="invoice-title">FACTURA</div>
+                <div class="invoice-title">CUOTA FAMILIAR</div>
                 <div class="invoice-number">{{ $invoice->numero }}</div>
                 <div class="invoice-status status-{{ $invoice->estado }}">
                     {{ strtoupper($invoice->estado) }}
@@ -366,8 +370,11 @@
         <div class="payment-info">
             <div class="payment-info-title">💰 INFORMACIÓN DE PAGO</div>
             <p>Pague oportunamente antes de la fecha de vencimiento para evitar recargos e intereses.</p>
+            @if($company?->banco && $company?->cuenta_bancaria)
+                <p><strong>Cuenta para consignación:</strong> {{ $company->banco }} - No. {{ $company->cuenta_bancaria }}</p>
+            @endif
             <p>Puntos de pago: Oficina del Acueducto o transferencia a cuenta autorizada.</p>
-            <p><strong>Conserve este recibo como comprobante de su factura.</strong></p>
+            <p><strong>Conserve este recibo como comprobante de su cuota familiar.</strong></p>
         </div>
         
         <!-- Historial de pagos -->
@@ -401,10 +408,15 @@
         
         <!-- Pie de página -->
         <div class="footer">
+            @if($company?->mensaje_factura)
+                <p style="font-size: 14px; font-weight: bold; color: #0d6efd; margin-bottom: 15px;">
+                    "{{ $company->mensaje_factura }}"
+                </p>
+            @endif
             <p>{{ $company->nombre ?? 'ACUEDUCTO RURAL' }} - {{ $company->nit ?? '' }}</p>
             <p>{{ $company->direccion ?? '' }} | Tel: {{ $company->telefono ?? '' }}</p>
             <p>Documento generado el {{ now()->format('d/m/Y H:i') }}</p>
-            <p><em>Este documento es válido como factura de servicios públicos</em></p>
+            <p><em>Este documento es válido como cuota familiar de servicios de acueducto</em></p>
         </div>
     </div>
 </body>

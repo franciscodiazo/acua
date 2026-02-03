@@ -6,6 +6,9 @@
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h2><i class="bi bi-cash-coin me-2"></i>Recibo de Pago {{ $payment->numero_recibo }}</h2>
     <div>
+        <a href="{{ route('payments.print', $payment) }}" class="btn btn-secondary" target="_blank">
+            <i class="bi bi-printer me-1"></i> Imprimir Recibo
+        </a>
         @if($payment->estado === 'activo')
         <form action="{{ route('payments.anular', $payment) }}" method="POST" class="d-inline" 
               onsubmit="return confirm('¿Está seguro de anular este pago?')">

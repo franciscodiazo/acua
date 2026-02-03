@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-@section('title', 'Detalle Factura')
+@section('title', 'Detalle Cuota Familiar')
 
 @section('content')
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2><i class="bi bi-receipt me-2"></i>Factura {{ $invoice->numero }}</h2>
+    <h2><i class="bi bi-receipt me-2"></i>Cuota Familiar {{ $invoice->numero }}</h2>
     <div>
         <a href="{{ route('invoices.print', $invoice) }}" class="btn btn-secondary" target="_blank">
             <i class="bi bi-printer me-1"></i> Imprimir
@@ -16,7 +16,7 @@
         @endif
         @if($invoice->estado === 'pendiente')
         <form action="{{ route('invoices.anular', $invoice) }}" method="POST" class="d-inline" 
-              onsubmit="return confirm('¿Está seguro de anular esta factura?')">
+              onsubmit="return confirm('¿Está seguro de anular esta cuota familiar?')">
             @csrf
             <button type="submit" class="btn btn-danger">
                 <i class="bi bi-x-circle me-1"></i> Anular
@@ -33,7 +33,7 @@
     <div class="col-md-6">
         <div class="card">
             <div class="card-header">
-                <i class="bi bi-info-circle me-1"></i> Información de la Factura
+                <i class="bi bi-info-circle me-1"></i> Información de la Cuota Familiar
             </div>
             <div class="card-body">
                 <table class="table table-borderless">

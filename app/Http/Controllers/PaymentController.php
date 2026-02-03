@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Payment;
 use App\Models\Invoice;
+use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -51,14 +52,14 @@ class PaymentController extends Controller
             'invoice_id' => 'required|exists:invoices,id',
             'monto' => 'required|numeric|min:1',
             'fecha' => 'required|date',
-            'metodo_pago' => 'required|in:efectivo,transferencia,otro',
+            'metodo_pago' => 'required|string',
             'observaciones' => 'nullable|string'
         ]);
 
         $invoice = Invoice::findOrFail($validated['invoice_id']);
         
         if ($invoice->estado === 'anulada') {
-            return back()->withErrors(['invoice_id' => 'No se puede abonar a una factura anulada.'])
+            return back()->withErrors(['invoice_id' => 'No se puede abonar a una cuota anulada.'])
                 ->withInput();
         }
 
@@ -96,6 +97,21 @@ class PaymentController extends Controller
     {
         $payment->load('invoice', 'subscriber');
         return view('payments.show', compact('payment'));
+    }
+
+    public function print(Payment $payment)
+    {
+        $payment->load('invoice.reading', 'subscriber');
+        $company = Company::first();
+        
+        // Obtener otras deudas pendientes del suscriptor
+        $otrasDeudasPendientes = Invoice::where('subscriber_id', $payment->subscriber_id)
+            ->where('id', '!=', $payment->invoice_id)
+            ->whereIn('estado', ['pendiente', 'parcial'])
+            ->orderBy('fecha_emision')
+            ->get();
+        
+        return view('payments.print', compact('payment', 'company', 'otrasDeudasPendientes'));
     }
 
     public function anular(Payment $payment)

@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-@section('title', 'Facturas')
+@section('title', 'Cuotas Familiares')
 
 @section('content')
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2><i class="bi bi-receipt me-2"></i>Facturas</h2>
+    <h2><i class="bi bi-receipt me-2"></i>Cuotas Familiares</h2>
 </div>
 
 <div class="card">
@@ -14,7 +14,7 @@
                 <div class="input-group">
                     <span class="input-group-text"><i class="bi bi-search"></i></span>
                     <input type="text" name="search" class="form-control" 
-                           placeholder="Buscar factura o suscriptor..." 
+                           placeholder="Buscar cuota o suscriptor..." 
                            value="{{ request('search') }}">
                 </div>
             </div>

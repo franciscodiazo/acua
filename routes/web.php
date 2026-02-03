@@ -23,8 +23,12 @@ use App\Http\Controllers\CompanyController;
 
 // Dashboard
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/reportes/diario', [DashboardController::class, 'reporteDiario'])->name('reportes.diario');
+Route::get('/reportes/fechas', [DashboardController::class, 'reporteFechas'])->name('reportes.fechas');
+Route::get('/reportes/cierre-anual', [DashboardController::class, 'cierreAnual'])->name('reportes.cierre-anual');
 
 // Suscriptores
+Route::get('subscribers/{subscriber}/estado-cuenta', [SubscriberController::class, 'estadoCuenta'])->name('subscribers.estado-cuenta');
 Route::resource('subscribers', SubscriberController::class);
 
 // Lecturas
@@ -40,6 +44,7 @@ Route::post('invoices/{invoice}/anular', [InvoiceController::class, 'anular'])->
 Route::resource('invoices', InvoiceController::class)->only(['index', 'show']);
 
 // Pagos
+Route::get('payments/{payment}/print', [PaymentController::class, 'print'])->name('payments.print');
 Route::post('payments/{payment}/anular', [PaymentController::class, 'anular'])->name('payments.anular');
 Route::resource('payments', PaymentController::class)->only(['index', 'create', 'store', 'show']);
 
@@ -52,4 +57,5 @@ Route::prefix('settings')->name('settings.')->group(function () {
     Route::resource('prices', PriceSettingController::class)->except(['show']);
     Route::get('company', [CompanyController::class, 'edit'])->name('company.edit');
     Route::put('company', [CompanyController::class, 'update'])->name('company.update');
+    Route::get('company/delete-logo', [CompanyController::class, 'deleteLogo'])->name('company.delete-logo');
 });

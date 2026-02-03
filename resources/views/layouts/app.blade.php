@@ -118,7 +118,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link {{ request()->routeIs('invoices.*') ? 'active' : '' }}" href="{{ route('invoices.index') }}">
-                    <i class="bi bi-receipt"></i> Facturas
+                    <i class="bi bi-receipt"></i> Cuotas Familiares
                 </a>
             </li>
             <li class="nav-item">

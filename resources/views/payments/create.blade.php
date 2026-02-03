@@ -62,9 +62,9 @@
                         <div class="col-md-4">
                             <label class="form-label">Método de Pago <span class="text-danger">*</span></label>
                             <select name="metodo_pago" class="form-select @error('metodo_pago') is-invalid @enderror" required>
-                                <option value="efectivo" {{ old('metodo_pago') == 'efectivo' ? 'selected' : '' }}>Efectivo</option>
-                                <option value="transferencia" {{ old('metodo_pago') == 'transferencia' ? 'selected' : '' }}>Transferencia</option>
-                                <option value="otro" {{ old('metodo_pago') == 'otro' ? 'selected' : '' }}>Otro</option>
+                                @foreach(\App\Models\Payment::$metodosPago as $key => $label)
+                                    <option value="{{ $key }}" {{ old('metodo_pago', 'efectivo') == $key ? 'selected' : '' }}>{{ $label }}</option>
+                                @endforeach
                             </select>
                             @error('metodo_pago')
                                 <div class="invalid-feedback">{{ $message }}</div>

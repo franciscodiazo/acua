@@ -20,6 +20,14 @@ class Payment extends Model
         'observaciones'
     ];
 
+    public static $metodosPago = [
+        'efectivo' => 'Efectivo',
+        'banco' => 'Consignación Banco',
+        'transferencia' => 'Transferencia',
+        'cheque' => 'Cheque',
+        'otro' => 'Otro'
+    ];
+
     protected $casts = [
         'monto' => 'decimal:2',
         'fecha' => 'date'

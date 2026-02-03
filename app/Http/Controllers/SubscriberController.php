@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Subscriber;
+use App\Models\Company;
+use App\Models\Invoice;
+use App\Models\Payment;
+use App\Models\Credit;
 use Illuminate\Http\Request;
 
 class SubscriberController extends Controller
@@ -98,5 +102,53 @@ class SubscriberController extends Controller
 
         return redirect()->route('subscribers.index')
             ->with('success', 'Suscriptor eliminado exitosamente.');
+    }
+
+    public function estadoCuenta(Subscriber $subscriber)
+    {
+        $company = Company::first();
+        
+        // Facturas pendientes
+        $facturasPendientes = Invoice::where('subscriber_id', $subscriber->id)
+            ->whereIn('estado', ['pendiente', 'parcial'])
+            ->orderBy('fecha_emision')
+            ->get();
+        
+        // Historial de abonos
+        $abonos = Payment::with('invoice')
+            ->where('subscriber_id', $subscriber->id)
+            ->orderBy('fecha', 'desc')
+            ->get();
+        
+        // Créditos a favor
+        $creditos = Credit::where('subscriber_id', $subscriber->id)
+            ->where('estado', 'activo')
+            ->orderBy('fecha', 'desc')
+            ->get();
+        
+        // Historial de facturas (últimas 12)
+        $historialFacturas = Invoice::with('reading')
+            ->where('subscriber_id', $subscriber->id)
+            ->orderBy('fecha_emision', 'desc')
+            ->limit(12)
+            ->get();
+        
+        // Resumen
+        $resumen = [
+            'saldo_pendiente' => $facturasPendientes->sum('saldo'),
+            'total_abonado' => $abonos->where('estado', 'activo')->sum('monto'),
+            'creditos_favor' => $creditos->sum('monto'),
+            'cuotas_pendientes' => $facturasPendientes->count()
+        ];
+        
+        return view('subscribers.estado-cuenta', compact(
+            'subscriber', 
+            'company', 
+            'facturasPendientes', 
+            'abonos', 
+            'creditos', 
+            'historialFacturas',
+            'resumen'
+        ));
     }
 }

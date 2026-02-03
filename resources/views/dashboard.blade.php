@@ -5,7 +5,33 @@
 @section('content')
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h2><i class="bi bi-speedometer2 me-2"></i>Dashboard</h2>
-    <span class="text-muted">{{ now()->format('d/m/Y') }}</span>
+    <div class="d-flex align-items-center gap-2">
+        <span class="text-muted me-3">{{ now()->format('d/m/Y') }}</span>
+        <div class="dropdown">
+            <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                <i class="bi bi-file-earmark-text me-1"></i> Reportes
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li><h6 class="dropdown-header">Movimientos</h6></li>
+                <li>
+                    <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalDiario">
+                        <i class="bi bi-calendar-day me-2"></i>Movimiento Diario
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalFechas">
+                        <i class="bi bi-calendar-range me-2"></i>Por Rango de Fechas
+                    </a>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                    <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalAnual">
+                        <i class="bi bi-calendar-check me-2"></i>Cierre Anual
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>
 
 <div class="row g-4 mb-4">
@@ -154,6 +180,96 @@
                     </table>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Reporte Diario -->
+<div class="modal fade" id="modalDiario" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="{{ route('reportes.diario') }}" method="GET" target="_blank">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="bi bi-calendar-day me-2"></i>Reporte Movimiento Diario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Seleccione la fecha</label>
+                        <input type="date" name="fecha" class="form-control" value="{{ date('Y-m-d') }}" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-file-earmark-pdf me-1"></i> Generar Reporte
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Reporte por Fechas -->
+<div class="modal fade" id="modalFechas" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="{{ route('reportes.fechas') }}" method="GET" target="_blank">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="bi bi-calendar-range me-2"></i>Reporte por Rango de Fechas</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Fecha Inicio</label>
+                            <input type="date" name="fecha_inicio" class="form-control" 
+                                   value="{{ date('Y-m-01') }}" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Fecha Fin</label>
+                            <input type="date" name="fecha_fin" class="form-control" 
+                                   value="{{ date('Y-m-d') }}" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-file-earmark-pdf me-1"></i> Generar Reporte
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Cierre Anual -->
+<div class="modal fade" id="modalAnual" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="{{ route('reportes.cierre-anual') }}" method="GET" target="_blank">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="bi bi-calendar-check me-2"></i>Cierre Anual</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Seleccione el año</label>
+                        <select name="anio" class="form-select" required>
+                            @for($i = date('Y'); $i >= date('Y') - 5; $i--)
+                                <option value="{{ $i }}">{{ $i }}</option>
+                            @endfor
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-file-earmark-pdf me-1"></i> Generar Cierre
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
