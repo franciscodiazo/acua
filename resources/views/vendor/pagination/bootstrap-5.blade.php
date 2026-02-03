@@ -142,7 +142,7 @@
 
         {{-- Selector de páginas (opcional - solo en desktop) --}}
         @if ($paginator->lastPage() > 1)
-        <div class="d-none d-lg-flex justify-content-center mt-3">
+        <div class="d-none d-lg-flex justify-content-center align-items-center gap-3 mt-3">
             <div class="input-group" style="max-width: 200px;">
                 <span class="input-group-text bg-light">
                     <i class="bi bi-skip-forward"></i>
@@ -156,9 +156,34 @@
                     @endfor
                 </select>
             </div>
+            
+            <div class="input-group" style="max-width: 200px;">
+                <span class="input-group-text bg-light">
+                    <i class="bi bi-list-ul"></i>
+                </span>
+                <select class="form-select form-select-sm" onchange="if(this.value) window.location.href=updateQueryString('per_page', this.value)">
+                    @php
+                        $currentPerPage = request()->get('per_page', 15);
+                    @endphp
+                    <option value="15" {{ $currentPerPage == 15 ? 'selected' : '' }}>15 por página</option>
+                    <option value="50" {{ $currentPerPage == 50 ? 'selected' : '' }}>50 por página</option>
+                    <option value="100" {{ $currentPerPage == 100 ? 'selected' : '' }}>100 por página</option>
+                    <option value="200" {{ $currentPerPage == 200 ? 'selected' : '' }}>200 por página</option>
+                    <option value="500" {{ $currentPerPage == 500 ? 'selected' : '' }}>500 por página</option>
+                </select>
+            </div>
         </div>
         @endif
     </nav>
+
+    <script>
+        function updateQueryString(key, value) {
+            const url = new URL(window.location);
+            url.searchParams.set(key, value);
+            url.searchParams.delete('page'); // Reset a página 1 al cambiar cantidad
+            return url.toString();
+        }
+    </script>
 
     {{-- Estilos personalizados --}}
     <style>
@@ -181,6 +206,13 @@
             transition: all 0.2s ease;
             min-width: 40px;
             text-align: center;
+            font-size: 0.875rem;
+            line-height: 1;
+        }
+        
+        .pagination-custom .page-link i {
+            font-size: 0.75rem;
+            vertical-align: middle;
         }
         
         .pagination-custom .page-link:hover {

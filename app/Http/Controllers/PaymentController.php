@@ -26,7 +26,8 @@ class PaymentController extends Controller
             });
         }
         
-        $payments = $query->orderBy('created_at', 'desc')->paginate(15);
+        $perPage = $request->get('per_page', 15);
+        $payments = $query->orderBy('created_at', 'desc')->paginate($perPage);
         
         return view('payments.index', compact('payments'));
     }

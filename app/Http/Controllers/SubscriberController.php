@@ -25,7 +25,8 @@ class SubscriberController extends Controller
             });
         }
         
-        $subscribers = $query->orderBy('matricula')->paginate(15);
+        $perPage = $request->get('per_page', 15);
+        $subscribers = $query->orderBy('matricula')->paginate($perPage);
         
         return view('subscribers.index', compact('subscribers'));
     }

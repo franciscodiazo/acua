@@ -30,7 +30,8 @@ class ReadingController extends Controller
             });
         }
         
-        $readings = $query->orderBy('created_at', 'desc')->paginate(15);
+        $perPage = $request->get('per_page', 15);
+        $readings = $query->orderBy('created_at', 'desc')->paginate($perPage);
         $ciclos = Reading::getCiclosDisponibles();
         
         return view('readings.index', compact('readings', 'ciclos'));

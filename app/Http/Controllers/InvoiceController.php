@@ -35,7 +35,8 @@ class InvoiceController extends Controller
             });
         }
         
-        $invoices = $query->orderBy('created_at', 'desc')->paginate(15);
+        $perPage = $request->get('per_page', 15);
+        $invoices = $query->orderBy('created_at', 'desc')->paginate($perPage);
         $ciclos = Reading::getCiclosDisponibles();
         
         return view('invoices.index', compact('invoices', 'ciclos'));

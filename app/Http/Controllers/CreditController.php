@@ -30,7 +30,8 @@ class CreditController extends Controller
             $query->where('tipo', $request->tipo);
         }
         
-        $credits = $query->orderBy('created_at', 'desc')->paginate(15);
+        $perPage = $request->get('per_page', 15);
+        $credits = $query->orderBy('created_at', 'desc')->paginate($perPage);
         
         return view('credits.index', compact('credits'));
     }
