@@ -10,6 +10,7 @@ use App\Http\Controllers\CreditController;
 use App\Http\Controllers\CreditPaymentController;
 use App\Http\Controllers\PriceSettingController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\BackupController;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,4 +65,19 @@ Route::prefix('settings')->name('settings.')->group(function () {
     Route::get('company', [CompanyController::class, 'edit'])->name('company.edit');
     Route::put('company', [CompanyController::class, 'update'])->name('company.update');
     Route::get('company/delete-logo', [CompanyController::class, 'deleteLogo'])->name('company.delete-logo');
+});
+
+// Copias de Respaldo
+Route::prefix('backups')->name('backups.')->group(function () {
+    Route::get('/', [BackupController::class, 'index'])->name('index');
+    Route::get('/export-database', [BackupController::class, 'exportDatabase'])->name('export-database');
+    Route::get('/export-subscribers', [BackupController::class, 'exportSubscribers'])->name('export-subscribers');
+    Route::get('/export-readings', [BackupController::class, 'exportReadings'])->name('export-readings');
+    Route::get('/export-credits', [BackupController::class, 'exportCredits'])->name('export-credits');
+    Route::post('/import-subscribers', [BackupController::class, 'importSubscribers'])->name('import-subscribers');
+    Route::post('/import-readings', [BackupController::class, 'importReadings'])->name('import-readings');
+    Route::post('/import-credits', [BackupController::class, 'importCredits'])->name('import-credits');
+    Route::get('/template-subscribers', [BackupController::class, 'templateSubscribers'])->name('template-subscribers');
+    Route::get('/template-readings', [BackupController::class, 'templateReadings'])->name('template-readings');
+    Route::get('/template-credits', [BackupController::class, 'templateCredits'])->name('template-credits');
 });

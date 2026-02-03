@@ -149,6 +149,11 @@
                     <i class="bi bi-building"></i> Empresa
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link {{ request()->routeIs('backups.*') ? 'active' : '' }}" href="{{ route('backups.index') }}">
+                    <i class="bi bi-cloud-download"></i> Copias de Respaldo
+                </a>
+            </li>
         </ul>
     </nav>
 
