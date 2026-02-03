@@ -25,8 +25,17 @@
                 <select name="estado" class="form-select">
                     <option value="">Todos los estados</option>
                     <option value="activo" {{ request('estado') == 'activo' ? 'selected' : '' }}>Activo</option>
+                    <option value="pagado" {{ request('estado') == 'pagado' ? 'selected' : '' }}>Pagado</option>
                     <option value="aplicado" {{ request('estado') == 'aplicado' ? 'selected' : '' }}>Aplicado</option>
                     <option value="anulado" {{ request('estado') == 'anulado' ? 'selected' : '' }}>Anulado</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <select name="tipo" class="form-select">
+                    <option value="">Todos los tipos</option>
+                    <option value="credito" {{ request('tipo') == 'credito' ? 'selected' : '' }}>Crédito</option>
+                    <option value="deuda" {{ request('tipo') == 'deuda' ? 'selected' : '' }}>Deuda</option>
+                    <option value="cuota" {{ request('tipo') == 'cuota' ? 'selected' : '' }}>Cuota Pendiente</option>
                 </select>
             </div>
             <div class="col-auto">
@@ -42,22 +51,38 @@
             <table class="table table-hover mb-0">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>Número</th>
                         <th>Suscriptor</th>
+                        <th>Tipo</th>
                         <th>Concepto</th>
                         <th>Monto</th>
+                        <th>Saldo</th>
                         <th>Fecha</th>
                         <th>Estado</th>
-                        <th width="100">Acciones</th>
+                        <th width="120">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse($credits as $credit)
                     <tr>
-                        <td>{{ $credit->id }}</td>
+                        <td>{{ $credit->numero }}</td>
                         <td>{{ $credit->subscriber->matricula }} - {{ $credit->subscriber->full_name }}</td>
+                        <td>
+                            @php
+                                $tiposCredito = [
+                                    'credito' => ['label' => 'Crédito', 'class' => 'bg-primary'],
+                                    'deuda' => ['label' => 'Deuda', 'class' => 'bg-danger'],
+                                    'cuota' => ['label' => 'Cuota Pendiente', 'class' => 'bg-warning text-dark']
+                                ];
+                                $tipo = $tiposCredito[$credit->tipo] ?? ['label' => 'Otro', 'class' => 'bg-secondary'];
+                            @endphp
+                            <span class="badge {{ $tipo['class'] }}">{{ $tipo['label'] }}</span>
+                        </td>
                         <td>{{ $credit->concepto }}</td>
                         <td>${{ number_format($credit->monto, 0, ',', '.') }}</td>
+                        <td class="{{ $credit->saldo > 0 ? 'text-danger fw-bold' : 'text-success' }}">
+                            ${{ number_format($credit->saldo, 0, ',', '.') }}
+                        </td>
                         <td>{{ $credit->fecha->format('d/m/Y') }}</td>
                         <td>
                             <span class="badge badge-{{ $credit->estado }}">{{ ucfirst($credit->estado) }}</span>
@@ -67,6 +92,12 @@
                                 <a href="{{ route('credits.show', $credit) }}" class="btn btn-outline-info" title="Ver">
                                     <i class="bi bi-eye"></i>
                                 </a>
+                                @if($credit->estado === 'activo' && $credit->saldo > 0)
+                                <a href="{{ route('credit-payments.create', ['credit_id' => $credit->id]) }}" 
+                                   class="btn btn-outline-success" title="Registrar Abono">
+                                    <i class="bi bi-plus-circle"></i>
+                                </a>
+                                @endif
                                 @if($credit->estado === 'activo')
                                 <form action="{{ route('credits.anular', $credit) }}" method="POST" class="d-inline"
                                       onsubmit="return confirm('¿Está seguro de anular este crédito?')">
@@ -81,7 +112,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="7" class="text-center text-muted py-4">
+                        <td colspan="9" class="text-center text-muted py-4">
                             No se encontraron créditos
                         </td>
                     </tr>

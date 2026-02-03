@@ -131,6 +131,11 @@
                     <i class="bi bi-credit-card"></i> Créditos
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link {{ request()->routeIs('credit-payments.*') ? 'active' : '' }}" href="{{ route('credit-payments.index') }}">
+                    <i class="bi bi-credit-card-2-front"></i> Abonos a Créditos
+                </a>
+            </li>
             
             <div class="sidebar-section">Configuración</div>
             

@@ -7,6 +7,7 @@ use App\Http\Controllers\ReadingController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\CreditController;
+use App\Http\Controllers\CreditPaymentController;
 use App\Http\Controllers\PriceSettingController;
 use App\Http\Controllers\CompanyController;
 
@@ -51,6 +52,11 @@ Route::resource('payments', PaymentController::class)->only(['index', 'create', 
 // Créditos
 Route::post('credits/{credit}/anular', [CreditController::class, 'anular'])->name('credits.anular');
 Route::resource('credits', CreditController::class)->only(['index', 'create', 'store', 'show']);
+
+// Abonos a Créditos
+Route::get('credit-payments/{creditPayment}/print', [CreditPaymentController::class, 'print'])->name('credit-payments.print');
+Route::patch('credit-payments/{creditPayment}/anular', [CreditPaymentController::class, 'anular'])->name('credit-payments.anular');
+Route::resource('credit-payments', CreditPaymentController::class)->only(['index', 'create', 'store', 'show']);
 
 // Configuración de Precios
 Route::prefix('settings')->name('settings.')->group(function () {

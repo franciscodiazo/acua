@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Credit;
 use App\Models\Subscriber;
+use App\Models\Company;
 use Illuminate\Http\Request;
 
 class CreditController extends Controller
@@ -23,6 +24,10 @@ class CreditController extends Controller
         
         if ($request->filled('estado')) {
             $query->where('estado', $request->estado);
+        }
+
+        if ($request->filled('tipo')) {
+            $query->where('tipo', $request->tipo);
         }
         
         $credits = $query->orderBy('created_at', 'desc')->paginate(15);
@@ -46,11 +51,15 @@ class CreditController extends Controller
     {
         $validated = $request->validate([
             'subscriber_id' => 'required|exists:subscribers,id',
+            'tipo' => 'required|in:credito,deuda,cuota',
             'concepto' => 'required|string|max:255',
             'monto' => 'required|numeric|min:1',
             'fecha' => 'required|date',
             'observaciones' => 'nullable|string'
         ]);
+
+        $validated['numero'] = Credit::generarNumero($validated['tipo']);
+        $validated['saldo'] = $validated['monto'];
 
         Credit::create($validated);
 
@@ -60,8 +69,9 @@ class CreditController extends Controller
 
     public function show(Credit $credit)
     {
-        $credit->load('subscriber', 'invoice');
-        return view('credits.show', compact('credit'));
+        $credit->load('subscriber', 'invoice', 'payments');
+        $company = Company::first();
+        return view('credits.show', compact('credit', 'company'));
     }
 
     public function anular(Credit $credit)
