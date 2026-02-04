@@ -17,3 +17,6 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+
+# Archivo de contexto personal (no subir a GitHub)
+DEVELOPMENT_CONTEXT.md
