@@ -7,7 +7,7 @@
     <style>
         @page {
             size: letter;
-            margin: 1cm;
+            margin: 0.8cm;
         }
         * {
             margin: 0;
@@ -16,14 +16,16 @@
         }
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
-            font-size: 11px;
-            line-height: 1.4;
+            font-size: 10px;
+            line-height: 1.3;
             color: #333;
             background: #fff;
         }
         .invoice-container {
             width: 100%;
-            height: 24.5cm;
+            max-width: 21.59cm;
+            height: auto;
+            min-height: 26.34cm;
             display: flex;
             flex-direction: column;
         }
@@ -43,25 +45,25 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 20px;
+            padding: 10px 15px;
             background: linear-gradient(135deg, var(--color-azul) 0%, var(--color-azul-oscuro) 100%);
             color: white;
-            border-radius: 10px 10px 0 0;
+            border-radius: 8px 8px 0 0;
         }
         .header-left {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 10px;
         }
         .logo-container {
-            width: 70px;
-            height: 70px;
+            width: 55px;
+            height: 55px;
             background: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 5px;
+            padding: 4px;
         }
         .logo-container img {
             max-width: 100%;
@@ -69,33 +71,33 @@
             object-fit: contain;
         }
         .company-name {
-            font-size: 22px;
+            font-size: 18px;
             font-weight: bold;
         }
         .company-tagline {
-            font-size: 11px;
+            font-size: 9px;
             opacity: 0.9;
         }
         .header-right {
             text-align: right;
         }
         .invoice-label {
-            font-size: 12px;
+            font-size: 10px;
             opacity: 0.9;
         }
         .invoice-number {
-            font-size: 26px;
+            font-size: 22px;
             font-weight: bold;
             letter-spacing: 1px;
         }
         .invoice-status {
             display: inline-block;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 11px;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 9px;
             font-weight: bold;
             text-transform: uppercase;
-            margin-top: 5px;
+            margin-top: 4px;
         }
         .status-pendiente { background: #ffc107; color: #000; }
         .status-pagada { background: var(--color-verde); color: #fff; }
@@ -107,7 +109,7 @@
             display: flex;
             justify-content: space-around;
             background: linear-gradient(135deg, var(--color-verde-claro) 0%, var(--color-azul-claro) 100%);
-            padding: 12px;
+            padding: 8px;
             border-left: 1px solid #dee2e6;
             border-right: 1px solid #dee2e6;
         }
@@ -115,13 +117,13 @@
             text-align: center;
         }
         .date-label {
-            font-size: 10px;
+            font-size: 8px;
             color: #fff;
             text-transform: uppercase;
             text-shadow: 0 1px 2px rgba(0,0,0,0.2);
         }
         .date-value {
-            font-size: 14px;
+            font-size: 11px;
             font-weight: bold;
             color: #fff;
             text-shadow: 0 1px 2px rgba(0,0,0,0.2);
@@ -132,8 +134,8 @@
             flex: 1;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            padding: 15px;
+            gap: 10px;
+            padding: 10px;
             border-left: 1px solid #dee2e6;
             border-right: 1px solid #dee2e6;
         }
@@ -141,15 +143,15 @@
         .section-box {
             background: #fff;
             border: 1px solid #e0e0e0;
-            border-radius: 8px;
+            border-radius: 6px;
             overflow: hidden;
         }
         .section-header {
             background: linear-gradient(135deg, var(--color-verde) 0%, var(--color-verde-oscuro) 100%);
             color: white;
-            padding: 8px 12px;
+            padding: 6px 10px;
             font-weight: bold;
-            font-size: 12px;
+            font-size: 10px;
         }
         .section-header.blue { 
             background: linear-gradient(135deg, var(--color-azul) 0%, var(--color-azul-oscuro) 100%); 
@@ -165,21 +167,21 @@
         }
         
         .section-body {
-            padding: 12px;
+            padding: 8px;
         }
         
         .info-grid {
             display: grid;
             grid-template-columns: auto 1fr;
-            gap: 6px 10px;
+            gap: 4px 8px;
         }
         .info-label {
             color: #666;
-            font-size: 10px;
+            font-size: 8px;
         }
         .info-value {
             font-weight: 500;
-            font-size: 11px;
+            font-size: 9px;
         }
         .info-value.highlight {
             color: var(--color-azul);
@@ -194,19 +196,19 @@
         .consumption-table th {
             background: linear-gradient(135deg, var(--color-azul-claro) 0%, var(--color-verde-claro) 100%);
             color: #fff;
-            padding: 8px;
-            font-size: 10px;
+            padding: 6px;
+            font-size: 8px;
             text-align: center;
             border-bottom: 2px solid var(--color-azul);
         }
         .consumption-table td {
-            padding: 10px;
+            padding: 6px;
             text-align: center;
-            font-size: 12px;
+            font-size: 9px;
             border-bottom: 1px solid #eee;
         }
         .consumption-table .big-number {
-            font-size: 18px;
+            font-size: 12px;
             font-weight: bold;
             color: var(--color-azul);
         }
@@ -217,7 +219,7 @@
         }
         .chart-wrapper {
             display: flex;
-            gap: 20px;
+            gap: 12px;
             align-items: stretch;
         }
         .chart-bars-container {
@@ -225,30 +227,30 @@
             display: flex;
             align-items: flex-end;
             justify-content: center;
-            gap: 30px;
-            height: 120px;
-            padding: 15px;
+            gap: 20px;
+            height: 90px;
+            padding: 10px;
             background: linear-gradient(to top, rgba(30, 136, 229, 0.1) 0%, #fff 100%);
-            border-radius: 8px;
+            border-radius: 6px;
             border: 1px solid #e0e0e0;
         }
         .bar-column {
             display: flex;
             flex-direction: column;
             align-items: center;
-            width: 80px;
+            width: 65px;
         }
         .bar-value {
-            font-size: 14px;
+            font-size: 11px;
             font-weight: bold;
             color: #333;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
         }
         .bar-wrapper {
-            width: 60px;
-            height: 80px;
+            width: 45px;
+            height: 60px;
             background: #e9ecef;
-            border-radius: 5px 5px 0 0;
+            border-radius: 4px 4px 0 0;
             display: flex;
             align-items: flex-end;
             overflow: hidden;
@@ -266,37 +268,37 @@
             background: #ccc;
         }
         .bar-label {
-            font-size: 11px;
+            font-size: 8px;
             color: #666;
-            margin-top: 8px;
+            margin-top: 5px;
             text-align: center;
             font-weight: 500;
         }
         
         .chart-stats-box {
-            width: 200px;
+            width: 160px;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            gap: 10px;
+            gap: 6px;
         }
         .stat-card {
             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border-radius: 8px;
-            padding: 10px;
+            border-radius: 5px;
+            padding: 6px;
             text-align: center;
-            border-left: 4px solid var(--color-azul);
+            border-left: 3px solid var(--color-azul);
         }
         .stat-card.green {
             border-left-color: var(--color-verde);
         }
         .stat-card .stat-label {
-            font-size: 9px;
+            font-size: 7px;
             color: #666;
             text-transform: uppercase;
         }
         .stat-card .stat-value {
-            font-size: 16px;
+            font-size: 12px;
             font-weight: bold;
             color: var(--color-azul);
         }
@@ -311,13 +313,13 @@
         .totals-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
+            gap: 10px;
         }
         .total-box {
             text-align: center;
-            padding: 15px;
+            padding: 10px;
             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border-radius: 10px;
+            border-radius: 6px;
             border: 2px solid #dee2e6;
         }
         .total-box.highlight {
@@ -333,13 +335,13 @@
             border-color: var(--color-verde);
         }
         .total-label {
-            font-size: 10px;
+            font-size: 8px;
             color: #666;
             text-transform: uppercase;
-            margin-bottom: 5px;
+            margin-bottom: 3px;
         }
         .total-value {
-            font-size: 22px;
+            font-size: 16px;
             font-weight: bold;
         }
         .total-box.highlight .total-value { color: var(--color-azul); }
@@ -350,25 +352,26 @@
         .credits-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 10px;
+            font-size: 8px;
         }
         .credits-table th {
             background: #ffebee;
             color: #c62828;
-            padding: 6px;
+            padding: 4px;
             text-align: left;
+            font-size: 8px;
         }
         .credits-table td {
-            padding: 6px;
+            padding: 4px;
             border-bottom: 1px solid #ffcdd2;
         }
         .credits-total {
             text-align: right;
-            font-size: 14px;
+            font-size: 11px;
             font-weight: bold;
             color: #dc3545;
-            margin-top: 8px;
-            padding-top: 8px;
+            margin-top: 5px;
+            padding-top: 5px;
             border-top: 2px solid #dc3545;
         }
         
@@ -376,25 +379,27 @@
         .footer {
             background: linear-gradient(135deg, var(--color-verde) 0%, var(--color-azul) 100%);
             color: white;
-            padding: 15px 20px;
-            border-radius: 0 0 10px 10px;
+            padding: 10px 15px;
+            border-radius: 0 0 8px 8px;
             text-align: center;
         }
         .footer-message {
-            font-size: 14px;
+            font-size: 11px;
             font-weight: bold;
-            margin-bottom: 10px;
+            margin-bottom: 6px;
         }
         .footer-info {
-            font-size: 10px;
+            font-size: 8px;
             opacity: 0.9;
+            line-height: 1.4;
         }
         .payment-box {
             background: rgba(255,255,255,0.2);
-            padding: 10px 15px;
-            border-radius: 5px;
-            margin: 10px 0;
+            padding: 6px 12px;
+            border-radius: 4px;
+            margin: 6px 0;
             display: inline-block;
+            font-size: 9px;
         }
         
         /* MARCA DE AGUA */
@@ -403,7 +408,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%) rotate(-30deg);
-            font-size: 120px;
+            font-size: 100px;
             color: rgba(0,0,0,0.03);
             font-weight: bold;
             pointer-events: none;
@@ -413,28 +418,38 @@
         /* BOTÓN IMPRIMIR */
         .print-btn {
             position: fixed;
-            top: 15px;
-            right: 15px;
+            top: 10px;
+            right: 10px;
             background: linear-gradient(135deg, var(--color-verde) 0%, var(--color-verde-oscuro) 100%);
             color: white;
             border: none;
-            padding: 12px 25px;
-            border-radius: 25px;
+            padding: 8px 18px;
+            border-radius: 20px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 12px;
             font-weight: bold;
-            box-shadow: 0 4px 15px rgba(67, 160, 71, 0.3);
+            box-shadow: 0 3px 10px rgba(67, 160, 71, 0.3);
             z-index: 1000;
         }
         .print-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(67, 160, 71, 0.4);
+            box-shadow: 0 5px 15px rgba(67, 160, 71, 0.4);
         }
         
         @media print {
             .print-btn { display: none; }
-            body { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
-            .invoice-container { height: auto; }
+            body { 
+                print-color-adjust: exact; 
+                -webkit-print-color-adjust: exact; 
+            }
+            .invoice-container { 
+                height: auto;
+                max-height: none;
+            }
+            @page {
+                size: letter;
+                margin: 0.8cm;
+            }
         }
     </style>
 </head>
@@ -495,9 +510,9 @@
         <!-- CONTENIDO PRINCIPAL -->
         <div class="main-content">
             <!-- DATOS DEL SUSCRIPTOR -->
-            <div class="section-box">
+            <div class="section-box" style="display: flex; flex-direction: column; height: 100%;">
                 <div class="section-header blue">👤 DATOS DEL SUSCRIPTOR</div>
-                <div class="section-body">
+                <div class="section-body" style="flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
                     <div class="info-grid">
                         <span class="info-label">Matrícula:</span>
                         <span class="info-value highlight">{{ $invoice->subscriber->matricula }}</span>
@@ -521,9 +536,9 @@
             </div>
             
             <!-- DETALLE DE CONSUMO -->
-            <div class="section-box">
-                <div class="section-header green">📊 DETALLE DE CONSUMO</div>
-                <div class="section-body" style="padding: 0;">
+            <div class="section-box" style="display: flex; flex-direction: column; height: 100%;">
+                <div class="section-header green">📊 DETALLE DE CONSUMO Y TARIFA</div>
+                <div class="section-body" style="padding: 0; flex: 1; display: flex; flex-direction: column;">
                     @if($invoice->reading)
                     <table class="consumption-table">
                         <thead>
@@ -541,6 +556,79 @@
                             </tr>
                         </tbody>
                     </table>
+                    
+                    <!-- DESGLOSE DE TARIFA INTEGRADO -->
+                    @php
+                        $anioFactura = $invoice->fecha_emision->year;
+                        $priceSetting = \App\Models\PriceSetting::getActiveForYear($anioFactura);
+                        
+                        $consumoActual = $invoice->reading->consumo;
+                        $tarifaBasica = 0;
+                        $metrosAdicionales = 0;
+                        $recargo = 0;
+                        $totalTarifa = 0;
+                        
+                        if ($priceSetting) {
+                            $tarifaBasica = $priceSetting->cuota_basica;
+                            
+                            if ($consumoActual > $priceSetting->consumo_basico) {
+                                $metrosAdicionales = $consumoActual - $priceSetting->consumo_basico;
+                                $recargo = $metrosAdicionales * $priceSetting->tarifa_adicional;
+                            }
+                            
+                            $totalTarifa = $tarifaBasica + $recargo;
+                        }
+                    @endphp
+                    
+                    <div style="padding: 8px; background: linear-gradient(to bottom, #f8f9fa, #fff); border-top: 1px solid #e0e0e0; flex: 1;">
+                        <div style="display: grid; grid-template-columns: 1fr auto; gap: 4px; max-width: 100%;">
+                            <!-- Tarifa Básica -->
+                            <div style="display: flex; align-items: center; gap: 4px;">
+                                <span style="font-size: 12px;">📋</span>
+                                <div>
+                                    <div style="font-size: 8px; color: #666;">
+                                        Tarifa Básica 
+                                        @if($priceSetting)
+                                            (hasta {{ number_format($priceSetting->consumo_basico, 0) }} m³)
+                                        @endif
+                                    </div>
+                                    <div style="font-size: 9px; font-weight: 600; color: var(--color-azul);">Cuota Fija</div>
+                                </div>
+                            </div>
+                            <div style="font-size: 12px; font-weight: bold; color: var(--color-azul); text-align: right; align-self: center;">
+                                ${{ number_format($tarifaBasica, 0, ',', '.') }}
+                            </div>
+                            
+                            @if($metrosAdicionales > 0)
+                            <!-- Recargo -->
+                            <div style="display: flex; align-items: center; gap: 4px;">
+                                <span style="font-size: 12px;">📈</span>
+                                <div>
+                                    <div style="font-size: 8px; color: #666;">Recargo metros adicionales</div>
+                                    <div style="font-size: 9px; font-weight: 600; color: var(--color-verde);">
+                                        {{ number_format($metrosAdicionales, 1) }} m³ × ${{ number_format($priceSetting->tarifa_adicional, 0, ',', '.') }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="font-size: 12px; font-weight: bold; color: var(--color-verde); text-align: right; align-self: center;">
+                                +${{ number_format($recargo, 0, ',', '.') }}
+                            </div>
+                            @endif
+                            
+                            <!-- Total -->
+                            <div style="grid-column: span 2; border-top: 1px solid var(--color-azul); margin: 5px 0 3px 0; padding-top: 5px;">
+                                <div style="display: grid; grid-template-columns: 1fr auto; gap: 4px;">
+                                    <div style="display: flex; align-items: center; gap: 4px;">
+                                        <span style="font-size: 14px;">💵</span>
+                                        <div style="font-size: 9px; color: #333; font-weight: bold; text-transform: uppercase;">Total Consumo</div>
+                                    </div>
+                                    <div style="font-size: 14px; font-weight: bold; color: var(--color-azul-oscuro); text-align: right;">
+                                        ${{ number_format($totalTarifa, 0, ',', '.') }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     @else
                     <p style="padding: 15px; text-align: center; color: #666;">Sin lectura asociada</p>
                     @endif
@@ -553,12 +641,13 @@
                 <div class="section-body">
                     @php
                         // Preparar datos para 3 períodos
-                        $consumoActual = $invoice->reading->consumo ?? 0;
+                        $consumoActual = $invoice->reading ? $invoice->reading->consumo : 0;
                         $historial = $historialConsumo->take(3)->reverse()->values();
                         
                         // Construir array de 3 períodos
                         $periodos = [];
-                        $periodoActual = \Carbon\Carbon::parse($invoice->reading->fecha ?? now());
+                        $fechaRef = $invoice->reading ? $invoice->reading->fecha : now();
+                        $periodoActual = \Carbon\Carbon::parse($fechaRef);
                         
                         // Período 3 (hace 2 meses)
                         if ($historial->count() >= 3) {
@@ -658,38 +747,94 @@
                 </div>
             </div>
             
-            <!-- CRÉDITOS/DEUDAS PENDIENTES -->
-            @if($totalCreditosPendientes > 0)
+            <!-- CRÉDITOS/DEUDAS Y FACTURAS PENDIENTES -->
+            @php
+                // Obtener facturas anteriores pendientes del mismo suscriptor
+                $facturasPendientes = \App\Models\Invoice::where('subscriber_id', $invoice->subscriber_id)
+                    ->where('id', '!=', $invoice->id)
+                    ->whereIn('estado', ['pendiente', 'parcial'])
+                    ->where('saldo', '>', 0)
+                    ->orderBy('fecha_emision', 'asc')
+                    ->get();
+                
+                $totalFacturasPendientes = $facturasPendientes->sum('saldo');
+                $totalDeudasPendientes = $totalCreditosPendientes + $totalFacturasPendientes;
+            @endphp
+            
+            @if($totalDeudasPendientes > 0)
             <div class="section-box" style="grid-column: span 2;">
-                <div class="section-header red">⚠️ CRÉDITOS / DEUDAS PENDIENTES</div>
-                <div class="section-body">
-                    <table class="credits-table">
-                        <thead>
-                            <tr>
-                                <th>Número</th>
-                                <th>Tipo</th>
-                                <th>Concepto</th>
-                                <th style="text-align: right;">Saldo</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($creditosPendientes as $credito)
-                            <tr>
-                                <td>{{ $credito->numero }}</td>
-                                <td>
-                                    @if($credito->tipo === 'credito') Crédito
-                                    @elseif($credito->tipo === 'deuda') Deuda
-                                    @else Cuota Pend.
-                                    @endif
-                                </td>
-                                <td>{{ Str::limit($credito->concepto, 40) }}</td>
-                                <td style="text-align: right; font-weight: bold;">${{ number_format($credito->saldo, 0, ',', '.') }}</td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                    <div class="credits-total">
-                        Total Deuda Adicional: ${{ number_format($totalCreditosPendientes, 0, ',', '.') }}
+                <div class="section-header red">⚠️ DEUDAS PENDIENTES DEL SUSCRIPTOR</div>
+                <div class="section-body" style="padding: 6px;">
+                    
+                    @if($facturasPendientes->count() > 0)
+                    <div style="margin-bottom: 8px;">
+                        <h4 style="font-size: 9px; color: #dc3545; margin-bottom: 4px; font-weight: bold;">📋 FACTURAS ANTERIORES PENDIENTES</h4>
+                        <table class="credits-table">
+                            <thead>
+                                <tr>
+                                    <th>Número</th>
+                                    <th>Período</th>
+                                    <th>Fecha</th>
+                                    <th style="text-align: right;">Saldo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($facturasPendientes as $factura)
+                                <tr>
+                                    <td>{{ $factura->numero }}</td>
+                                    <td>{{ $factura->ciclo }}</td>
+                                    <td>{{ $factura->fecha_emision->format('d/m/Y') }}</td>
+                                    <td style="text-align: right; font-weight: bold; color: #dc3545;">${{ number_format($factura->saldo, 0, ',', '.') }}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        <div style="text-align: right; font-size: 9px; font-weight: bold; color: #dc3545; margin-top: 3px; padding-top: 3px; border-top: 1px solid #ffcdd2;">
+                            Subtotal: ${{ number_format($totalFacturasPendientes, 0, ',', '.') }}
+                        </div>
+                    </div>
+                    @endif
+                    
+                    @if($totalCreditosPendientes > 0)
+                    <div>
+                        <h4 style="font-size: 9px; color: #dc3545; margin-bottom: 4px; font-weight: bold;">💳 CRÉDITOS Y OTRAS DEUDAS</h4>
+                        <table class="credits-table">
+                            <thead>
+                                <tr>
+                                    <th>Número</th>
+                                    <th>Tipo</th>
+                                    <th>Concepto</th>
+                                    <th style="text-align: right;">Saldo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($creditosPendientes as $credito)
+                                <tr>
+                                    <td>{{ $credito->numero }}</td>
+                                    <td>
+                                        @if($credito->tipo === 'credito') Créd.
+                                        @elseif($credito->tipo === 'deuda') Deuda
+                                        @else C.Pend.
+                                        @endif
+                                    </td>
+                                    <td>{{ Str::limit($credito->concepto, 35) }}</td>
+                                    <td style="text-align: right; font-weight: bold;">${{ number_format($credito->saldo, 0, ',', '.') }}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        <div style="text-align: right; font-size: 9px; font-weight: bold; color: #dc3545; margin-top: 3px; padding-top: 3px; border-top: 1px solid #ffcdd2;">
+                            Subtotal: ${{ number_format($totalCreditosPendientes, 0, ',', '.') }}
+                        </div>
+                    </div>
+                    @endif
+                    
+                    <div style="text-align: center; font-size: 11px; font-weight: bold; color: #dc3545; margin-top: 6px; padding: 6px; background: #ffebee; border-radius: 4px;">
+                        💰 TOTAL DEUDAS: ${{ number_format($totalDeudasPendientes, 0, ',', '.') }}
+                    </div>
+                    
+                    <div style="background: #fff3cd; border: 1px solid #ffc107; border-radius: 4px; padding: 5px; margin-top: 5px; font-size: 7px; color: #856404; line-height: 1.3;">
+                        <strong>⚠️ IMPORTANTE:</strong> Este monto NO está incluido en el total de esta factura. Regularice su situación realizando el pago de estas deudas.
                     </div>
                 </div>
             </div>
