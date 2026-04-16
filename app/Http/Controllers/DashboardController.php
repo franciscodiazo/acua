@@ -13,6 +13,26 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        // Obtener los dos últimos ciclos únicos registrados
+        $ciclosUnicos = Reading::distinct('ciclo')
+            ->orderBy('ciclo', 'desc')
+            ->limit(2)
+            ->pluck('ciclo')
+            ->toArray();
+        
+        $consumoActual = 0;
+        $consumoAnterior = 0;
+        $diferencia = 0;
+        
+        if (count($ciclosUnicos) >= 1) {
+            $consumoActual = Reading::where('ciclo', $ciclosUnicos[0])->sum('consumo');
+        }
+        
+        if (count($ciclosUnicos) >= 2) {
+            $consumoAnterior = Reading::where('ciclo', $ciclosUnicos[1])->sum('consumo');
+            $diferencia = $consumoActual - $consumoAnterior;
+        }
+        
         $stats = [
             'total_subscribers' => Subscriber::where('activo', true)->count(),
             'readings_pendientes' => Reading::where('estado', 'pendiente')->count(),
@@ -21,7 +41,10 @@ class DashboardController extends Controller
                 ->whereMonth('fecha', now()->month)
                 ->whereYear('fecha', now()->year)
                 ->sum('monto'),
-            'saldo_por_cobrar' => Invoice::whereIn('estado', ['pendiente', 'parcial'])->sum('saldo')
+            'saldo_por_cobrar' => Invoice::whereIn('estado', ['pendiente', 'parcial'])->sum('saldo'),
+            'consumo_actual' => $consumoActual,
+            'consumo_anterior' => $consumoAnterior,
+            'diferencia_consumo' => $diferencia
         ];
         
         $ultimasLecturas = Reading::with('subscriber')

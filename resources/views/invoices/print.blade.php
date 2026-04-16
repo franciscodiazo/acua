@@ -6,8 +6,8 @@
     <title>Cuota Familiar {{ $invoice->numero }}</title>
     <style>
         @page {
-            size: letter;
-            margin: 0.8cm;
+            size: letter portrait;
+            margin: 0.7cm;
         }
         * {
             margin: 0;
@@ -19,15 +19,25 @@
             font-size: 10px;
             line-height: 1.3;
             color: #333;
-            background: #fff;
+            background: #d3d3d3;
+            padding: 20px;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
         }
         .invoice-container {
             width: 100%;
             max-width: 21.59cm;
             height: auto;
-            min-height: 26.34cm;
             display: flex;
             flex-direction: column;
+            background: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            border-radius: 2px;
+            page-break-after: avoid;
+            overflow: visible;
         }
         
         /* COLORES INSTITUCIONALES - Verde y Azul del logo */
@@ -45,7 +55,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 15px;
+            padding: 8px 12px;
             background: linear-gradient(135deg, var(--color-azul) 0%, var(--color-azul-oscuro) 100%);
             color: white;
             border-radius: 8px 8px 0 0;
@@ -109,7 +119,7 @@
             display: flex;
             justify-content: space-around;
             background: linear-gradient(135deg, var(--color-verde-claro) 0%, var(--color-azul-claro) 100%);
-            padding: 8px;
+            padding: 6px;
             border-left: 1px solid #dee2e6;
             border-right: 1px solid #dee2e6;
         }
@@ -132,12 +142,27 @@
         /* CONTENIDO PRINCIPAL */
         .main-content {
             flex: 1;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            padding: 10px;
+            display: flex;
+            gap: 6px;
+            padding: 6px;
             border-left: 1px solid #dee2e6;
             border-right: 1px solid #dee2e6;
+            align-items: flex-start;
+            page-break-inside: avoid;
+        }
+        .main-content > .column-left,
+        .main-content > .column-right {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .main-content > .column-left {
+            flex: 0 0 46%;
+            min-width: 260px;
+        }
+        .main-content > .column-right {
+            flex: 1;
+            min-width: 280px;
         }
         
         .section-box {
@@ -145,11 +170,12 @@
             border: 1px solid #e0e0e0;
             border-radius: 6px;
             overflow: hidden;
+            page-break-inside: avoid;
         }
         .section-header {
             background: linear-gradient(135deg, var(--color-verde) 0%, var(--color-verde-oscuro) 100%);
             color: white;
-            padding: 6px 10px;
+            padding: 5px 8px;
             font-weight: bold;
             font-size: 10px;
         }
@@ -167,7 +193,7 @@
         }
         
         .section-body {
-            padding: 8px;
+            padding: 5px;
         }
         
         .info-grid {
@@ -227,9 +253,9 @@
             display: flex;
             align-items: flex-end;
             justify-content: center;
-            gap: 20px;
-            height: 90px;
-            padding: 10px;
+            gap: 12px;
+            height: 55px;
+            padding: 8px;
             background: linear-gradient(to top, rgba(30, 136, 229, 0.1) 0%, #fff 100%);
             border-radius: 6px;
             border: 1px solid #e0e0e0;
@@ -238,17 +264,17 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            width: 65px;
+            width: 44px;
         }
         .bar-value {
-            font-size: 11px;
+            font-size: 8px;
             font-weight: bold;
             color: #333;
-            margin-bottom: 4px;
+            margin-bottom: 3px;
         }
         .bar-wrapper {
-            width: 45px;
-            height: 60px;
+            width: 38px;
+            height: 36px;
             background: #e9ecef;
             border-radius: 4px 4px 0 0;
             display: flex;
@@ -357,12 +383,12 @@
         .credits-table th {
             background: #ffebee;
             color: #c62828;
-            padding: 4px;
+            padding: 3px 4px;
             text-align: left;
             font-size: 8px;
         }
         .credits-table td {
-            padding: 4px;
+            padding: 3px 4px;
             border-bottom: 1px solid #ffcdd2;
         }
         .credits-total {
@@ -379,9 +405,13 @@
         .footer {
             background: linear-gradient(135deg, var(--color-verde) 0%, var(--color-azul) 100%);
             color: white;
-            padding: 10px 15px;
+            padding: 8px 12px;
+            margin: 0 1px;
+            border-left: 1px solid #dee2e6;
+            border-right: 1px solid #dee2e6;
             border-radius: 0 0 8px 8px;
             text-align: center;
+            flex-shrink: 0;
         }
         .footer-message {
             font-size: 11px;
@@ -435,8 +465,65 @@
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(67, 160, 71, 0.4);
         }
-        
+        .invoice-summary-grid {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 4px 8px;
+            font-size: 8px;
+            line-height: 1.2;
+        }
+        .invoice-summary-grid .info-label {
+            color: #555;
+            font-size: 7px;
+            text-transform: uppercase;
+        }
+        .invoice-summary-grid .info-value {
+            font-size: 9px;
+            font-weight: 600;
+            color: #222;
+        }
+        .stub-box {
+            border: 1px dashed #999;
+            border-radius: 6px;
+            padding: 8px;
+            margin: 0 1px;
+            background: #fffdf9;
+            page-break-inside: avoid;
+            flex-shrink: 0;
+        }
+        .stub-title {
+            font-size: 10px;
+            font-weight: bold;
+            margin-bottom: 6px;
+            color: var(--color-azul);
+        }
+        .stub-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(75px, 1fr));
+            gap: 5px;
+            font-size: 8px;
+            line-height: 1.15;
+        }
+        .stub-grid .info-label {
+            text-transform: uppercase;
+            color: #666;
+            font-size: 7px;
+        }
+        .stub-grid .info-value {
+            font-size: 8px;
+            font-weight: 600;
+            color: #222;
+        }
+
         @media print {
+            body {
+                padding: 0;
+                background: white;
+            }
+            .invoice-container {
+                box-shadow: none;
+                max-width: 100%;
+            }
             .print-btn { display: none; }
             body { 
                 print-color-adjust: exact; 
@@ -445,10 +532,6 @@
             .invoice-container { 
                 height: auto;
                 max-height: none;
-            }
-            @page {
-                size: letter;
-                margin: 0.8cm;
             }
         }
     </style>
@@ -509,10 +592,11 @@
         
         <!-- CONTENIDO PRINCIPAL -->
         <div class="main-content">
+            <div class="column-left">
             <!-- DATOS DEL SUSCRIPTOR -->
-            <div class="section-box" style="display: flex; flex-direction: column; height: 100%;">
+            <div class="section-box" style="display: flex; flex-direction: column;">
                 <div class="section-header blue">👤 DATOS DEL SUSCRIPTOR</div>
-                <div class="section-body" style="flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
+                <div class="section-body" style="display: flex; flex-direction: column; gap: 6px;">
                     <div class="info-grid">
                         <span class="info-label">Matrícula:</span>
                         <span class="info-value highlight">{{ $invoice->subscriber->matricula }}</span>
@@ -534,11 +618,93 @@
                     </div>
                 </div>
             </div>
-            
+
+            <div class="section-box chart-section">
+                <div class="section-header mixed">📈 HISTORIAL DE CONSUMO</div>
+                <div class="section-body" style="padding: 8px; display: grid; gap: 8px;">
+                    @php
+                        $consumoActual = $invoice->reading ? $invoice->reading->consumo : 0;
+                        $historial = $historialConsumo->take(3)->reverse()->values();
+                        $periodos = [];
+                        $fechaRef = $invoice->reading ? $invoice->reading->fecha : now();
+                        $periodoActual = \Carbon\Carbon::parse($fechaRef);
+
+                        if ($historial->count() >= 3) {
+                            $periodos[] = [
+                                'consumo' => $historial[0]->consumo,
+                                'label' => \Carbon\Carbon::parse($historial[0]->fecha)->format('M Y')
+                            ];
+                        } else {
+                            $periodos[] = ['consumo' => 0, 'label' => $periodoActual->copy()->subMonths(2)->format('M Y')];
+                        }
+
+                        if ($historial->count() >= 2) {
+                            $idx = $historial->count() >= 3 ? 1 : 0;
+                            $periodos[] = [
+                                'consumo' => $historial[$idx]->consumo,
+                                'label' => \Carbon\Carbon::parse($historial[$idx]->fecha)->format('M Y')
+                            ];
+                        } else {
+                            $periodos[] = ['consumo' => 0, 'label' => $periodoActual->copy()->subMonth()->format('M Y')];
+                        }
+
+                        $periodos[] = [
+                            'consumo' => $consumoActual,
+                            'label' => $periodoActual->format('M Y'),
+                            'current' => true
+                        ];
+
+                        $maxConsumo = max($consumoActual, 1);
+                        foreach ($periodos as $p) {
+                            if ($p['consumo'] > $maxConsumo) $maxConsumo = $p['consumo'];
+                        }
+
+                        $todosConsumos = $historialConsumo->pluck('consumo');
+                        $promedio = $todosConsumos->count() > 0 ? $todosConsumos->avg() : $consumoActual;
+                        $minimo = $todosConsumos->count() > 0 ? $todosConsumos->min() : $consumoActual;
+                        $maximo = $todosConsumos->count() > 0 ? $todosConsumos->max() : $consumoActual;
+                    @endphp
+
+                    <div class="chart-bars-container" style="height: 48px; gap: 12px; padding: 6px;">
+                        @foreach($periodos as $periodo)
+                        <div class="bar-column">
+                            <div class="bar-wrapper">
+                                @php
+                                    $altura = $periodo['consumo'] > 0
+                                        ? max(6, ($periodo['consumo'] / $maxConsumo) * 100)
+                                        : 6;
+                                @endphp
+                                <div class="bar-fill {{ isset($periodo['current']) ? 'current' : '' }} {{ $periodo['consumo'] == 0 ? 'empty' : '' }}"
+                                    style="height: {{ $altura }}%;"></div>
+                            </div>
+                            <span class="bar-label" style="font-size: 7px; margin-top: 4px;">{{ $periodo['label'] }}</span>
+                        </div>
+                        @endforeach
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: repeat(3, minmax(66px, 1fr)); gap: 6px;">
+                        <div class="stat-card" style="padding: 6px;">
+                            <div class="stat-label">Promedio</div>
+                            <div class="stat-value">{{ number_format($promedio, 1) }} m³</div>
+                        </div>
+                        <div class="stat-card" style="padding: 6px;">
+                            <div class="stat-label">Mín / Máx</div>
+                            <div class="stat-value">{{ number_format($minimo, 0) }} / {{ number_format($maximo, 0) }}</div>
+                        </div>
+                        <div class="stat-card green" style="padding: 6px;">
+                            <div class="stat-label">Actual</div>
+                            <div class="stat-value">{{ number_format($consumoActual, 0) }} m³</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <div class="column-right">
+
             <!-- DETALLE DE CONSUMO -->
-            <div class="section-box" style="display: flex; flex-direction: column; height: 100%;">
+            <div class="section-box" style="display: flex; flex-direction: column;">
                 <div class="section-header green">📊 DETALLE DE CONSUMO Y TARIFA</div>
-                <div class="section-body" style="padding: 0; flex: 1; display: flex; flex-direction: column;">
+                <div class="section-body" style="padding: 0; display: flex; flex-direction: column; gap: 6px;">
                     @if($invoice->reading)
                     <table class="consumption-table">
                         <thead>
@@ -635,100 +801,35 @@
                 </div>
             </div>
             
-            <!-- GRÁFICO DE CONSUMO - SIEMPRE 3 BARRAS -->
-            <div class="section-box chart-section">
-                <div class="section-header mixed">📈 HISTORIAL DE CONSUMO (Últimos 3 períodos)</div>
-                <div class="section-body">
-                    @php
-                        // Preparar datos para 3 períodos
-                        $consumoActual = $invoice->reading ? $invoice->reading->consumo : 0;
-                        $historial = $historialConsumo->take(3)->reverse()->values();
-                        
-                        // Construir array de 3 períodos
-                        $periodos = [];
-                        $fechaRef = $invoice->reading ? $invoice->reading->fecha : now();
-                        $periodoActual = \Carbon\Carbon::parse($fechaRef);
-                        
-                        // Período 3 (hace 2 meses)
-                        if ($historial->count() >= 3) {
-                            $periodos[] = [
-                                'consumo' => $historial[0]->consumo,
-                                'label' => \Carbon\Carbon::parse($historial[0]->fecha)->format('M Y')
-                            ];
-                        } else {
-                            $periodos[] = ['consumo' => 0, 'label' => $periodoActual->copy()->subMonths(2)->format('M Y')];
-                        }
-                        
-                        // Período 2 (hace 1 mes)
-                        if ($historial->count() >= 2) {
-                            $idx = $historial->count() >= 3 ? 1 : 0;
-                            $periodos[] = [
-                                'consumo' => $historial[$idx]->consumo,
-                                'label' => \Carbon\Carbon::parse($historial[$idx]->fecha)->format('M Y')
-                            ];
-                        } elseif ($historial->count() == 1) {
-                            $periodos[] = ['consumo' => 0, 'label' => $periodoActual->copy()->subMonth()->format('M Y')];
-                        } else {
-                            $periodos[] = ['consumo' => 0, 'label' => $periodoActual->copy()->subMonth()->format('M Y')];
-                        }
-                        
-                        // Período actual
-                        $periodos[] = [
-                            'consumo' => $consumoActual,
-                            'label' => $periodoActual->format('M Y'),
-                            'current' => true
-                        ];
-                        
-                        // Calcular máximo para escalar (el actual = 100%)
-                        $maxConsumo = max($consumoActual, 1);
-                        foreach ($periodos as $p) {
-                            if ($p['consumo'] > $maxConsumo) $maxConsumo = $p['consumo'];
-                        }
-                        
-                        // Estadísticas basadas en historial real
-                        $todosConsumos = $historialConsumo->pluck('consumo');
-                        $promedio = $todosConsumos->count() > 0 ? $todosConsumos->avg() : $consumoActual;
-                        $minimo = $todosConsumos->count() > 0 ? $todosConsumos->min() : $consumoActual;
-                        $maximo = $todosConsumos->count() > 0 ? $todosConsumos->max() : $consumoActual;
-                    @endphp
-                    
-                    <div class="chart-wrapper">
-                        <div class="chart-bars-container">
-                            @foreach($periodos as $index => $periodo)
-                            <div class="bar-column">
-                                <span class="bar-value">{{ number_format($periodo['consumo'], 0) }} m³</span>
-                                <div class="bar-wrapper">
-                                    @php
-                                        $altura = $periodo['consumo'] > 0 
-                                            ? max(5, ($periodo['consumo'] / $maxConsumo) * 100) 
-                                            : 5;
-                                    @endphp
-                                    <div class="bar-fill {{ isset($periodo['current']) ? 'current' : '' }} {{ $periodo['consumo'] == 0 ? 'empty' : '' }}" 
-                                         style="height: {{ $altura }}%;"></div>
-                                </div>
-                                <span class="bar-label">{{ $periodo['label'] }}</span>
-                            </div>
-                            @endforeach
-                        </div>
-                        
-                        <div class="chart-stats-box">
-                            <div class="stat-card">
-                                <div class="stat-label">Promedio</div>
-                                <div class="stat-value">{{ number_format($promedio, 1) }} m³</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-label">Mín / Máx</div>
-                                <div class="stat-value">{{ number_format($minimo, 0) }} / {{ number_format($maximo, 0) }}</div>
-                            </div>
-                            <div class="stat-card green">
-                                <div class="stat-label">Actual</div>
-                                <div class="stat-value">{{ number_format($consumoActual, 0) }} m³</div>
-                            </div>
-                        </div>
+            <!-- RESUMEN DE FACTURA -->
+            <div class="section-box">
+                <div class="section-header blue">📌 RESUMEN DE FACTURA</div>
+                <div class="section-body" style="padding: 6px;">
+                    <div class="invoice-summary-grid">
+                        <span class="info-label">Factura</span>
+                        <span class="info-value">{{ $invoice->numero }}</span>
+                        <span class="info-label">Estado</span>
+                        <span class="info-value">{{ strtoupper($invoice->estado) }}</span>
+                        <span class="info-label">Ciclo</span>
+                        <span class="info-value">{{ $invoice->ciclo }}</span>
+                        <span class="info-label">Fecha Lectura</span>
+                        <span class="info-value">{{ optional($invoice->reading)->fecha?->format('d/m/Y') ?? 'N/A' }}</span>
+                        <span class="info-label">Lectura Anterior</span>
+                        <span class="info-value">{{ optional($invoice->reading)->lectura_anterior ? number_format($invoice->reading->lectura_anterior, 0) : 'N/A' }}</span>
+                        <span class="info-label">Lectura Actual</span>
+                        <span class="info-value">{{ optional($invoice->reading)->lectura_actual ? number_format($invoice->reading->lectura_actual, 0) : 'N/A' }}</span>
+                        <span class="info-label">Consumo</span>
+                        <span class="info-value">{{ optional($invoice->reading)->consumo ? number_format($invoice->reading->consumo, 0) . ' m³' : 'N/A' }}</span>
+                        <span class="info-label">Total Factura</span>
+                        <span class="info-value">${{ number_format($invoice->subtotal, 0, ',', '.') }}</span>
+                        <span class="info-label">Total a Pagar</span>
+                        <span class="info-value">${{ number_format($invoice->total, 0, ',', '.') }}</span>
+                        <span class="info-label">Saldo</span>
+                        <span class="info-value">${{ number_format($invoice->saldo, 0, ',', '.') }}</span>
                     </div>
                 </div>
             </div>
-            
+
             <!-- TOTALES -->
             <div class="totals-section">
                 <div class="totals-grid">
@@ -746,15 +847,17 @@
                     </div>
                 </div>
             </div>
-            
-            <!-- CRÉDITOS/DEUDAS Y FACTURAS PENDIENTES -->
-            @php
-                // Obtener facturas anteriores pendientes del mismo suscriptor
-                $facturasPendientes = \App\Models\Invoice::where('subscriber_id', $invoice->subscriber_id)
-                    ->where('id', '!=', $invoice->id)
-                    ->whereIn('estado', ['pendiente', 'parcial'])
-                    ->where('saldo', '>', 0)
-                    ->orderBy('fecha_emision', 'asc')
+            </div>
+        </div>
+
+        <!-- CRÉDITOS/DEUDAS Y FACTURAS PENDIENTES -->
+        @php
+            // Obtener facturas anteriores pendientes del mismo suscriptor
+            $facturasPendientes = \App\Models\Invoice::where('subscriber_id', $invoice->subscriber_id)
+                ->where('id', '!=', $invoice->id)
+                ->whereIn('estado', ['pendiente', 'parcial'])
+                ->where('saldo', '>', 0)
+                ->orderBy('fecha_emision', 'asc')
                     ->get();
                 
                 $totalFacturasPendientes = $facturasPendientes->sum('saldo');
@@ -762,7 +865,7 @@
             @endphp
             
             @if($totalDeudasPendientes > 0)
-            <div class="section-box" style="grid-column: span 2;">
+            <div class="section-box" style="width: 100%; margin: 6px 1px; border-left: 1px solid #e0e0e0; border-right: 1px solid #e0e0e0;">
                 <div class="section-header red">⚠️ DEUDAS PENDIENTES DEL SUSCRIPTOR</div>
                 <div class="section-body" style="padding: 6px;">
                     
@@ -839,8 +942,60 @@
                 </div>
             </div>
             @endif
+
+        <div class="stub-box">
+            <div class="stub-title">✂️ DESPRENDIBLE / COPIA PARA EL SUSCRIPTOR</div>
+            <div class="stub-grid">
+                <div>
+                    <div class="info-label">Factura</div>
+                    <div class="info-value">{{ $invoice->numero }}</div>
+                </div>
+                <div>
+                    <div class="info-label">Estado</div>
+                    <div class="info-value">{{ strtoupper($invoice->estado) }}</div>
+                </div>
+                <div>
+                    <div class="info-label">Ciclo</div>
+                    <div class="info-value">{{ $invoice->ciclo }}</div>
+                </div>
+                <div>
+                    <div class="info-label">Total a Pagar</div>
+                    <div class="info-value">${{ number_format($invoice->total, 0, ',', '.') }}</div>
+                </div>
+                <div>
+                    <div class="info-label">Fecha Emisión</div>
+                    <div class="info-value">{{ $invoice->fecha_emision->format('d/m/Y') }}</div>
+                </div>
+                <div>
+                    <div class="info-label">Vencimiento</div>
+                    <div class="info-value">{{ $invoice->fecha_vencimiento->format('d/m/Y') }}</div>
+                </div>
+                <div>
+                    <div class="info-label">Saldo</div>
+                    <div class="info-value">${{ number_format($invoice->saldo, 0, ',', '.') }}</div>
+                </div>
+                <div>
+                    <div class="info-label">Suscriptor</div>
+                    <div class="info-value">{{ $invoice->subscriber->full_name }}</div>
+                </div>
+                <div>
+                    <div class="info-label">Matrícula</div>
+                    <div class="info-value">{{ $invoice->subscriber->matricula }}</div>
+                </div>
+                <div>
+                    <div class="info-label">Sector / Estrato</div>
+                    <div class="info-value">{{ $invoice->subscriber->sector ?? 'N/A' }} / {{ $invoice->subscriber->estrato ?? 'N/A' }}</div>
+                </div>
+                <div style="grid-column: span 4;">
+                    <div class="info-label">Pago en</div>
+                    <div class="info-value">@if($company?->banco && $company?->cuenta_bancaria){{ $company->banco }} - Cuenta No. {{ $company->cuenta_bancaria }}@else{{ $company->nombre ?? 'ACUEDUCTO RURAL' }}@endif</div>
+                </div>
+                <div style="grid-column: span 4; font-size: 7px; color: #555; margin-top: 4px;">
+                    Presente este comprobante al momento del pago. Este desprendible corresponde a la misma factura y debe imprimirse en la misma hoja carta.
+                </div>
+            </div>
         </div>
-        
+
         <!-- PIE DE PÁGINA -->
         <div class="footer">
             @if($company?->mensaje_factura)

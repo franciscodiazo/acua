@@ -86,18 +86,35 @@
     <div class="col-md-6 col-lg-3">
         <div class="card h-100">
             <div class="card-body">
-                <div class="d-flex align-items-center">
-                    <div class="flex-shrink-0 bg-success bg-opacity-10 p-3 rounded">
-                        <i class="bi bi-cash-coin fs-3 text-success"></i>
+                <div class="d-flex align-items-start justify-content-between">
+                    <div>
+                        <h6 class="text-muted mb-2">
+                            <i class="bi bi-droplet me-2 text-info"></i>Consumo Ciclo Actual
+                        </h6>
+                        <h3 class="mb-3">{{ number_format($stats['consumo_actual'] ?? 0, 0) }} <small class="text-muted fs-6">m³</small></h3>
+                        
+                        <div class="mb-2">
+                            <small class="text-muted d-block">Ciclo Anterior:</small>
+                            <small class="fw-semibold">{{ number_format($stats['consumo_anterior'] ?? 0, 0) }} m³</small>
+                        </div>
+                        
+                        <div class="p-2 rounded {{ $stats['diferencia_consumo'] >= 0 ? 'bg-danger bg-opacity-10' : 'bg-success bg-opacity-10' }}">
+                            <small class="fw-semibold {{ $stats['diferencia_consumo'] >= 0 ? 'text-danger' : 'text-success' }}">
+                                <i class="bi {{ $stats['diferencia_consumo'] >= 0 ? 'bi-arrow-up' : 'bi-arrow-down' }} me-1"></i>
+                                {{ $stats['diferencia_consumo'] >= 0 ? '+' : '' }}{{ number_format($stats['diferencia_consumo'] ?? 0, 0) }} m³
+                            </small>
+                        </div>
                     </div>
-                    <div class="ms-3">
-                        <h6 class="text-muted mb-1">Recaudado (Mes)</h6>
-                        <h3 class="mb-0">${{ number_format($stats['total_recaudado_mes'], 0, ',', '.') }}</h3>
+                    <div class="flex-shrink-0">
+                        <div class="bg-info bg-opacity-10 p-3 rounded">
+                            <i class="bi bi-droplet fs-3 text-info"></i>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 </div>
 
 <div class="row g-4">
